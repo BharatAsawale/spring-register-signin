@@ -6,19 +6,25 @@ public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
 	private String id;
-	private String username;
+	private String firstname;
+	private String lastname;
 	private String email;
+	private String profilepic;
+	private String coverpic;
 	private List<String> roles;
 
-	public JwtResponse(String accessToken, String id, String username, String email, List<String> roles) {
+	public JwtResponse(String accessToken, String id, String firstname, String lastname, String email, String profilepic, String coverpic, List<String> roles) {
 		this.token = accessToken;
 		this.id = id;
-		this.username = username;
+		this.firstname=firstname;
+		this.lastname=lastname;
 		this.email = email;
+		this.profilepic = profilepic;
+		this.coverpic = coverpic;
 		this.roles = roles;
 	}
 
-	public String getAccessToken() {
+    public String getAccessToken() {
 		return token;
 	}
 
@@ -50,15 +56,31 @@ public class JwtResponse {
 		this.email = email;
 	}
 
-	public String getUsername() {
-		return username;
-	}
+	public String getProfilepic() { return profilepic; }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	public void setProfilepic(String profilepic) { this.profilepic = profilepic; }
+
+	public String getCoverpic() { return coverpic; }
+
+	public void setCoverpic(String coverpic) { this.coverpic = coverpic; }
 
 	public List<String> getRoles() {
 		return roles;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 }

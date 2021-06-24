@@ -17,8 +17,12 @@ public class User {
   private String id;
 
   @NotBlank
-  @Size(max = 20)
-  private String username;
+  @Size(min= 3, max = 20)
+  private String firstname;
+
+  @NotBlank
+  @Size(min= 3, max = 20)
+  private String lastname;
 
   @NotBlank
   @Size(max = 50)
@@ -29,16 +33,25 @@ public class User {
   @Size(max = 120)
   private String password;
 
+  @Size(max = 120)
+  private String profilepic;
+
+  @Size(max = 120)
+  private String coverpic;
+
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
   public User() {
   }
 
-  public User(String username, String email, String password) {
-    this.username = username;
+  public User(String firstname, String lastname, String email, String password, String profilepic, String coverpic) {
+    this.firstname = firstname;
+    this.lastname = lastname;
     this.email = email;
     this.password = password;
+    this.profilepic = profilepic;
+    this.coverpic = coverpic;
   }
 
   public String getId() {
@@ -50,11 +63,7 @@ public class User {
   }
 
   public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
+    return email;
   }
 
   public String getEmail() {
@@ -79,5 +88,29 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public String getProfilepic() { return profilepic; }
+
+  public void setProfilepic(String profilepic) { this.profilepic = profilepic; }
+
+  public String getCoverpic() { return coverpic; }
+
+  public void setCoverpic(String coverpic) { this.coverpic = coverpic; }
+
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
   }
 }
