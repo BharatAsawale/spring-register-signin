@@ -5,11 +5,9 @@ import com.bezkoder.spring.jwt.mongodb.models.User;
 import com.bezkoder.spring.jwt.mongodb.repository.PostDataRepository;
 import com.bezkoder.spring.jwt.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/post")
@@ -24,13 +22,12 @@ public class PostDataController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping(value = "/add")
-    public String cretatePost(@RequestBody PostData postData){
-//        User user;
-        Optional<User> optional=userRepository.findUserByEmail("bharatasawale@gmail.com");
-        optional.ifPresent(user -> {
-            postData.setUserId(user.getId());
-        });
+    @PostMapping(value = "/{userId}/add")
+    public String createPost(@PathVariable String userId,@RequestBody PostData postData){
+        User user=userRepository.findUserById(userId);
+        postData.setUserId(user.getId());
+        postData.setFirstname(user.getFirstname());
+        postData.setLastname(user.getLastname());
         postData.setCreatedDate(java.time.LocalDateTime.now());
         PostData insertPost=postDataRepository.insert(postData);
         return "Post created: " + insertPost.getPostId();
@@ -42,5 +39,6 @@ public class PostDataController {
     }
 
     @GetMapping(value = "/allposts")
-    public List<PostData> getAllPosts(){ return postDataRepository.findAll(); }
+    public List<PostData> getAllPosts(){ 
+        return postDataRepository.findAll(); }
 }

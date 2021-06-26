@@ -5,14 +5,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Document(collection = "postdata")
 public class PostData {
     @Id
     private String postId;
     private String userId;
-    private String contentTxt;
+    private String firstname;
+    private String lastname;
+    private String caption;
     private String imgUrl;
     @Column(name="createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdDate;
@@ -33,12 +34,28 @@ public class PostData {
         this.userId = userId;
     }
 
-    public String getContentTxt() {
-        return contentTxt;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setContentTxt(String contentTxt) {
-        this.contentTxt = contentTxt;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
     }
 
     public String getImgUrl() {
