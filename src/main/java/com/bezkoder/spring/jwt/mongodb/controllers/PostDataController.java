@@ -27,7 +27,7 @@ public class PostDataController {
     public String createPost(@PathVariable String userId,@RequestBody PostData postData){
         User user=userRepository.findUserById(userId);
         PostUser postUser=new PostUser();
-        postUser.setUserId(user.getId());
+        postData.setUserId(user.getId());
         postUser.setFirstname(user.getFirstname());
         postUser.setLastname(user.getLastname());
         postData.setPostUser(postUser);
@@ -38,7 +38,7 @@ public class PostDataController {
 
     @GetMapping(value = "/{userId}/posts")
     public List<PostData> getAllPostsByUserId(@PathVariable String userId){
-        return postDataRepository.findAllByUserId(userId);
+        return postDataRepository.findAllPostsByUserId(userId);
     }
 
     @GetMapping(value = "/allposts")

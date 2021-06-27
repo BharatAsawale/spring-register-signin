@@ -1,17 +1,8 @@
 package com.bezkoder.spring.jwt.mongodb.payload.request;
 
 public class PostUser {
-    private String userId;
     private String firstname;
     private String lastname;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getFirstname() {
         return firstname;

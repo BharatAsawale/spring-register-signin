@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class PostData {
     @Id
     private String postId;
-    @JsonIgnore
     private String userId;
     private String caption;
     private String imgUrl;
@@ -27,6 +26,14 @@ public class PostData {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCaption() {
