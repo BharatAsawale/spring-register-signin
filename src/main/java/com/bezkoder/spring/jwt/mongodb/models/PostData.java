@@ -1,5 +1,7 @@
 package com.bezkoder.spring.jwt.mongodb.models;
 
+import com.bezkoder.spring.jwt.mongodb.payload.request.PostUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,13 +12,14 @@ import java.time.LocalDateTime;
 public class PostData {
     @Id
     private String postId;
+    @JsonIgnore
     private String userId;
-    private String firstname;
-    private String lastname;
     private String caption;
     private String imgUrl;
     @Column(name="createdDate", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdDate;
+
+    PostUser postUser;
 
     public String getPostId() {
         return postId;
@@ -24,30 +27,6 @@ public class PostData {
 
     public void setPostId(String postId) {
         this.postId = postId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public String getCaption() {
@@ -72,5 +51,13 @@ public class PostData {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public PostUser getPostUser() {
+        return postUser;
+    }
+
+    public void setPostUser(PostUser postUser) {
+        this.postUser = postUser;
     }
 }

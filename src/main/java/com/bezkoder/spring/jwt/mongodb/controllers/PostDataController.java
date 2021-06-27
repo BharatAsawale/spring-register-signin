@@ -2,6 +2,7 @@ package com.bezkoder.spring.jwt.mongodb.controllers;
 
 import com.bezkoder.spring.jwt.mongodb.models.PostData;
 import com.bezkoder.spring.jwt.mongodb.models.User;
+import com.bezkoder.spring.jwt.mongodb.payload.request.PostUser;
 import com.bezkoder.spring.jwt.mongodb.repository.PostDataRepository;
 import com.bezkoder.spring.jwt.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,11 @@ public class PostDataController {
     @PostMapping(value = "/{userId}/add")
     public String createPost(@PathVariable String userId,@RequestBody PostData postData){
         User user=userRepository.findUserById(userId);
-        postData.setUserId(user.getId());
-        postData.setFirstname(user.getFirstname());
-        postData.setLastname(user.getLastname());
+        PostUser postUser=new PostUser();
+        postUser.setUserId(user.getId());
+        postUser.setFirstname(user.getFirstname());
+        postUser.setLastname(user.getLastname());
+        postData.setPostUser(postUser);
         postData.setCreatedDate(java.time.LocalDateTime.now());
         PostData insertPost=postDataRepository.insert(postData);
         return "Post created: " + insertPost.getPostId();
