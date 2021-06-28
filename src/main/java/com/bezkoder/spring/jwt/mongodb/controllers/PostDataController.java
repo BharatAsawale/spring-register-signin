@@ -3,9 +3,11 @@ package com.bezkoder.spring.jwt.mongodb.controllers;
 import com.bezkoder.spring.jwt.mongodb.models.PostData;
 import com.bezkoder.spring.jwt.mongodb.models.User;
 import com.bezkoder.spring.jwt.mongodb.payload.request.PostUser;
+import com.bezkoder.spring.jwt.mongodb.payload.response.MessageResponse;
 import com.bezkoder.spring.jwt.mongodb.repository.PostDataRepository;
 import com.bezkoder.spring.jwt.mongodb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +26,11 @@ public class PostDataController {
     }
 
     @PostMapping(value = "/{userId}/add")
-    public String createPost(@PathVariable String userId,@RequestBody PostData postData){
+    public ResponseEntity<?> createPost(@PathVariable String userId,@RequestBody PostData postData){
+        if (!userRepository.existsById(userId)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("User not exits!"));
+        }
+
         User user=userRepository.findUserById(userId);
         PostUser postUser=new PostUser();
         postData.setUserId(user.getId());
@@ -33,7 +39,7 @@ public class PostDataController {
         postData.setPostUser(postUser);
         postData.setCreatedDate(java.time.LocalDateTime.now());
         PostData insertPost=postDataRepository.insert(postData);
-        return "Post created: " + insertPost.getPostId();
+        return ResponseEntity.ok(new MessageResponse("Post created: " + insertPost.getPostId()));
     }
 
     @GetMapping(value = "/{userId}/posts")
