@@ -1,6 +1,7 @@
 package com.bezkoder.spring.jwt.mongodb.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -39,10 +40,19 @@ public class User {
   @Size(max = 120)
   private String coverpic;
 
+  private List<String> follower;
+
+  private List<String> following;
+
   @DBRef
   private Set<Role> roles = new HashSet<>();
 
   public User() {
+  }
+
+  public User(List<String> follower, List<String> following) {
+    this.follower = follower;
+    this.following = following;
   }
 
   public User(String firstname, String lastname, String email, String password, String profilepic, String coverpic) {
@@ -112,5 +122,21 @@ public class User {
 
   public void setLastname(String lastname) {
     this.lastname = lastname;
+  }
+
+  public List<String> getFollower() {
+    return follower;
+  }
+
+  public void setFollower(List<String> follower) {
+    this.follower = follower;
+  }
+
+  public List<String> getFollowing() {
+    return following;
+  }
+
+  public void setFollowing(List<String> following) {
+    this.following = following;
   }
 }
