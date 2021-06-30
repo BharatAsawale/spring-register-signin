@@ -23,27 +23,49 @@ public class FollowController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(value = "/{userId}/f")
-    public ResponseEntity followRequest(@PathVariable String userId){
-        if(userRepository.existsById(userId)) {
-            User user = userRepository.findUserById(userId);
-//            List<String> follow = user.getFollower();
-            if (user.getFollowing()==null){
-                List<String> follow = new ArrayList<>();
-                follow.add("hi4");
-                user.setFollower(follow);
-                userRepository.save(user);
-                return ResponseEntity.ok(new MessageResponse("DONE.."));
+    @GetMapping(value = "/{userId}/{userId1}")
+    public ResponseEntity followRequest(@PathVariable String userId,@PathVariable String userId1){
+        if(userRepository.existsById(userId)){
+            try {
+                User user = userRepository.findUserById(userId);
+                List<String> following = user.getFollowing();
+                if(following.contains(userId1)){
+                    return ResponseEntity.badRequest().body(new MessageResponse("already following"));
+                }
+                else {
+                    following.add(userId1);
+                    user.setFollowing(following);
+                    userRepository.save(user);
+                    User user1 = userRepository.findUserById(userId1);
+                    List<String> follower = user1.getFollower();
+                    if(follower.contains(userId)){
+                        return ResponseEntity.badRequest().body(new MessageResponse("already follower"));
+                    }
+                    else {
+                        follower.add(userId);
+                        user1.setFollower(follower);
+                        userRepository.save(user1);
+                        return ResponseEntity.ok().body(new MessageResponse("done"));
+                    }
+                }
             }
-            else {
-                List<String> follow = user.getFollower();
-                follow.add("hi4");
+            catch (NullPointerException e){
+                User user = userRepository.findUserById(userId);
+                List<String> following = new ArrayList<>();
+                following.add(userId1);
+                user.setFollowing(following);
                 userRepository.save(user);
-                return ResponseEntity.ok(new MessageResponse("done.."));
+                User user1=userRepository.findUserById(userId1);
+                List<String> follower = new ArrayList<>();
+                follower.add(userId);
+                user1.setFollower(follower);
+                userRepository.save(user1);
+                return ResponseEntity.ok().body(new MessageResponse("done"));
             }
         }
-        else {
-            return ResponseEntity.badRequest().body(new MessageResponse("User does not exits!"));
-        }
+        else
+            return ResponseEntity.badRequest().body(new MessageResponse("User not found.."));
     }
+
+
 }
