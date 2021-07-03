@@ -15,4 +15,10 @@ public interface UserRepository extends MongoRepository<User, String> {
   User findUserById(String userId);
 
   boolean existsById(String userId);
+
+  String findFirstnameById(String users);
+
+  String findLastnameById(String users);
+
+  String findProfilepicById(String users);
 }
