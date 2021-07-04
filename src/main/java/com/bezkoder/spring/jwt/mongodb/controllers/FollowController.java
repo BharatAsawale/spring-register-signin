@@ -117,7 +117,7 @@ public class FollowController {
             return ResponseEntity.badRequest().body(new MessageResponse("User not found.."));
     }
 
-    @GetMapping(value = "/getfollowings/{userid}")
+    @GetMapping(value = "/followings/{userid}")
     public ResponseEntity<?> getFollowings(@PathVariable String userid){
         if(userRepository.existsById(userid)) {
             User user = userRepository.findUserById(userid);
@@ -125,6 +125,33 @@ public class FollowController {
             List<HashMap<String, String>> ls=new ArrayList<>();
             for(String users:list){
                 HashMap<String, String> flw = new HashMap<>();
+                if(!userRepository.existsById(users))
+                    continue;
+                User user1= userRepository.findUserById(users);
+                flw.put("userid",users);
+                flw.put("firstname",user1.getFirstname());
+                flw.put("lastname",user1.getLastname());
+                flw.put("profilepic",user1.getProfilepic());
+                ls.add(flw);
+            }
+            return ResponseEntity.ok(new FollowResponse(
+                    userid,
+                    ls
+            ));
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("User not found.."));
+    }
+
+    @GetMapping(value = "/followers/{userid}")
+    public ResponseEntity<?> getFollower(@PathVariable String userid){
+        if(userRepository.existsById(userid)) {
+            User user = userRepository.findUserById(userid);
+            List<String> list=user.getFollower();
+            List<HashMap<String, String>> ls=new ArrayList<>();
+            for(String users:list){
+                HashMap<String, String> flw = new HashMap<>();
+                if(!userRepository.existsById(users))
+                    continue;
                 User user1= userRepository.findUserById(users);
                 flw.put("userid",users);
                 flw.put("firstname",user1.getFirstname());

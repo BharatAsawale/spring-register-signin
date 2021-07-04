@@ -1,0 +1,12 @@
+(follower)bharat{
+	following:{			
+		pradip}
+	follower:{			followRequest{
+		pradip}				follower:bharat,
+}						following:pradip
+					}
+(following)pradip{
+	following:{
+		bharat}
+	follower:{
+		bharat}
