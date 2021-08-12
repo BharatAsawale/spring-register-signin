@@ -25,10 +25,10 @@ public class FollowController {
 
     @PostMapping(value = "/")
     public ResponseEntity followRequest(@RequestBody FollowRequest followRequest){
-        if(followRequest.getFollower()==followRequest.getFollowing()){
+        if(followRequest.getFollower().equals(followRequest.getFollowing())){
             return ResponseEntity.badRequest().body(new MessageResponse("trying to follow itself!"));
         }
-        if(userRepository.existsById(followRequest.getFollower())){
+        if(userRepository.existsById(followRequest.getFollower()) && userRepository.existsById(followRequest.getFollowing())){
             try{
                 User user=userRepository.findUserById(followRequest.getFollower());
                 List<String> following = user.getFollowing();
@@ -72,14 +72,14 @@ public class FollowController {
 
     @PostMapping(value = "/unfollow")
     public ResponseEntity unfollowPostRequest(@RequestBody FollowRequest followRequest){
-        if(followRequest.getFollower()==followRequest.getFollowing()){
+        if(followRequest.getFollower().equals(followRequest.getFollowing())){
             return ResponseEntity.badRequest().body(new MessageResponse("trying to unfollow itself!"));
         }
-        if(userRepository.existsById(followRequest.getFollower())){
+        if(userRepository.existsById(followRequest.getFollower()) && userRepository.existsById(followRequest.getFollowing())){
             try{
                 User user=userRepository.findUserById(followRequest.getFollower());
                 List<String> following = user.getFollowing();
-                if(following.contains(followRequest.getFollowing())){
+                if(!following.contains(followRequest.getFollowing())){
                     return ResponseEntity.badRequest().body(new MessageResponse("not following"));
                 }
                 else {
@@ -88,7 +88,7 @@ public class FollowController {
                     userRepository.save(user);
                     User user1 = userRepository.findUserById(followRequest.getFollowing());
                     List<String> follower = user1.getFollower();
-                    if(follower.contains(followRequest.getFollower())){
+                    if(!follower.contains(followRequest.getFollower())){
                         return ResponseEntity.badRequest().body(new MessageResponse("not follower"));
                     }
                     else {
@@ -100,17 +100,7 @@ public class FollowController {
                 }
             }
             catch (NullPointerException e){
-                User user = userRepository.findUserById(followRequest.getFollower());
-                List<String> following = new ArrayList<>();
-                following.remove(followRequest.getFollowing());
-                user.setFollowing(following);
-                userRepository.save(user);
-                User user1=userRepository.findUserById(followRequest.getFollowing());
-                List<String> follower = new ArrayList<>();
-                follower.remove(followRequest.getFollower());
-                user1.setFollower(follower);
-                userRepository.save(user1);
-                return ResponseEntity.ok().body(new MessageResponse("done"));
+                return ResponseEntity.badRequest().body(new MessageResponse("not found"));
             }
         }
         else
