@@ -3,6 +3,7 @@ package com.bezkoder.spring.jwt.mongodb.controllers;
 import com.bezkoder.spring.jwt.mongodb.models.Photo;
 import com.bezkoder.spring.jwt.mongodb.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,12 +39,12 @@ public class PhotoController {
         return "photos";
     }
 
-//    @GetMapping("/photos/upload")
-//    public String uploadPhoto(Model model) {
-//        model.addAttribute("message", "hello");
-//        return "uploadPhoto";
-//    }
-//
+    @GetMapping("/photos/upload")
+    public String uploadPhoto(Model model) {
+        model.addAttribute("message", "hello");
+        return "uploadPhoto";
+    }
+
     @PostMapping("/photos/add")
     public String addPhoto(@RequestParam("title") String title, @RequestParam("image") MultipartFile image, Model model) throws IOException {
         String id = photoService.addPhoto(title, image);
