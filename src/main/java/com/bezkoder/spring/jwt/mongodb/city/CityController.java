@@ -20,6 +20,30 @@ public class CityController {
         return new ResponseEntity<>(state1, HttpStatus.OK);
     }
 
+    @GetMapping(value = "states/all")
+    public ResponseEntity<List<State>> allStates(){
+        return new ResponseEntity<>(stateRepo.findAll(),HttpStatus.OK);
+    }
+    @GetMapping(value = "cities/all")
+    public ResponseEntity<List<City>> allCities(){
+        return new ResponseEntity<>(cityRepo.findAll(),HttpStatus.OK);
+    }
+    @GetMapping("/cities/{id}")
+    public ResponseEntity<?> findCitiesById(@PathVariable int id){
+        State state=stateRepo.findById(id);
+        List<City> cities=cityRepo.findAllCitiesByState(state);
+        return new ResponseEntity<>(cities,HttpStatus.OK);
+    }
+    @GetMapping("/statecity/all")
+    public ResponseEntity<StateCities> allCity(){
+        StateCities stateCities=new StateCities();
+        List<State> list=stateRepo.findAll();
+        List<City> list1=cityRepo.findAll();
+        stateCities.setStates(list);
+        stateCities.setCities(list1);
+        return new ResponseEntity<>(stateCities,HttpStatus.OK);
+    }
+
     @PostMapping(value = "/city/add")
     public ResponseEntity<?> AddCity(@RequestBody AddCity addCity){
         int sid=addCity.getStateId();
@@ -35,22 +59,6 @@ public class CityController {
         return new ResponseEntity<>(city1,HttpStatus.OK);
     }
 
-    @GetMapping("/cities/all")
-    public ResponseEntity<StateCities> allCity(){
-        StateCities stateCities=new StateCities();
-        List list=stateRepo.findAll();
-        List list1=cityRepo.findAll();
-        stateCities.setStates(list);
-        stateCities.setCities(list1);
-        return new ResponseEntity<>(stateCities,HttpStatus.OK);
-    }
-
-    @GetMapping("/cities/{id}")
-    public ResponseEntity<?> findCitiesById(@PathVariable int id){
-        State state=stateRepo.findById(id);
-        List<City> cities=cityRepo.findAllCitiesByState(state);
-        return new ResponseEntity<>(cities,HttpStatus.OK);
-    }
 
 //    @GetMapping("/city/addallcity")
 //    public String addAllCity(){
