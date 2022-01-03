@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Column;
+import javax.persistence.Id;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,10 +16,12 @@ import javax.persistence.ManyToOne;
 @Setter
 @Document(collection = "city")
 public class City {
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name= RelationshipConstants.STATE_ID)
+    @Id
+    @Column(nullable = false)
+    private int id;
+    @Column(nullable = false)
+    private String city;
+    @DBRef
+    @Column(nullable = false)
     private State state;
-
 }

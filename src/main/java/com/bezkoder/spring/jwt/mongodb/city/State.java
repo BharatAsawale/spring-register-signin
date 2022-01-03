@@ -7,13 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "state")
 public class State {
-
-    private String name;
-
+    @Id
+    @Column(nullable = false)
+    private int id;
+    @Column(nullable = false)
+    private String state;
 }
