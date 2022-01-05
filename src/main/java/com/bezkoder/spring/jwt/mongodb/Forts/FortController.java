@@ -2,7 +2,7 @@ package com.bezkoder.spring.jwt.mongodb.Forts;
 
 import com.bezkoder.spring.jwt.mongodb.city.City;
 import com.bezkoder.spring.jwt.mongodb.city.CityRepo;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 public class FortController {
     private final FortRepo fortRepo;
@@ -29,11 +29,13 @@ public class FortController {
         fort1=fortRepo.save(fort);
         return new ResponseEntity<>(fort1, HttpStatus.OK);
     }
+
     @GetMapping("/fort/all")
     public ResponseEntity<List<Fort>> all(){
         List<Fort> list=fortRepo.findAll();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+
     @GetMapping("fort/{id}")
     public ResponseEntity<?> findFort(@PathVariable int id){
         Fort fort=new Fort();
@@ -61,6 +63,7 @@ public class FortController {
         list=fortDetailsRepo.findAll();
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
+
     @GetMapping("/fortdetails/{id}")
     public ResponseEntity<?> fortDetailsById(@PathVariable int id){
         Fort fort=new Fort();
