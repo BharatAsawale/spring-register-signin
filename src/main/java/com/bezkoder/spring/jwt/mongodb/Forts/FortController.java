@@ -5,6 +5,7 @@ import com.bezkoder.spring.jwt.mongodb.city.CityRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class FortController {
         return new ResponseEntity<>(list,HttpStatus.OK);
     }
 
-    @GetMapping("fort/{id}")
+    @GetMapping("/fort/{id}")
     public ResponseEntity<?> findFort(@PathVariable int id){
         Fort fort=new Fort();
         fort = fortRepo.findById(id);
@@ -45,7 +46,17 @@ public class FortController {
         return new ResponseEntity<>(fortRepo.findById(id),HttpStatus.OK);
     }
 
-    @PostMapping("fortdetails/add/{fid}")
+    @GetMapping("/fort/city/{id}")
+    public ResponseEntity<?> findFortByCity(@PathVariable int id){
+        City city=cityRepo.findById(id);
+        if(city==null)
+            return ResponseEntity.badRequest().body("no data found for given city");
+        List<Fort> fortList=new ArrayList<>();
+        fortList=fortRepo.findByCity(city);
+        return new ResponseEntity<>(fortList,HttpStatus.OK);
+    }
+
+    @PostMapping("/fortdetails/add/{fid}")
     public ResponseEntity<?> addFortDetails(@RequestBody FortDetails fortDetails, @PathVariable int fid){
         Fort fort=new Fort();
         fort = fortRepo.findById(fid);
