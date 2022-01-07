@@ -1,9 +1,8 @@
 package com.bezkoder.spring.jwt.mongodb.Forts;
 
-import com.bezkoder.spring.jwt.mongodb.city.City;
+import com.bezkoder.spring.jwt.mongodb.city.En.City;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import lombok.experimental.FieldNameConstants;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -25,5 +24,4 @@ public class Fort {
     @JsonIgnore
     @DBRef
     private City city;
-
 }

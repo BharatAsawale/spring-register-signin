@@ -1,6 +1,6 @@
 package com.bezkoder.spring.jwt.mongodb.Forts;
 
-import com.bezkoder.spring.jwt.mongodb.city.City;
+import com.bezkoder.spring.jwt.mongodb.city.En.City;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

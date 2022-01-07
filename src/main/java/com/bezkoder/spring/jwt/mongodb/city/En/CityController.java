@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jwt.mongodb.city;
+package com.bezkoder.spring.jwt.mongodb.city.En;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,19 +14,18 @@ public class CityController {
     private final CityRepo cityRepo;
     private final StateRepo stateRepo;
 
-    @PostMapping(value = "/state/add")
-    public ResponseEntity<State> AddState(@RequestBody State state){
-        State state1=new State();
-        state1=stateRepo.save(state);
-        return new ResponseEntity<>(state1, HttpStatus.OK);
+    @PostMapping("/city/add/{sid}")
+    public ResponseEntity<?> AddCity(@RequestBody City city, @PathVariable int sid){
+        State state=stateRepo.findById(sid);
+        if(state==null)
+            return ResponseEntity.badRequest().body("State Not Found");
+        city.setState(state);
+        City city1=new City();
+        city1=cityRepo.save(city);
+        return new ResponseEntity<>(city1,HttpStatus.OK);
     }
 
-    @GetMapping(value = "states/all")
-    public ResponseEntity<List<State>> allStates(){
-        return new ResponseEntity<>(stateRepo.findAll(),HttpStatus.OK);
-    }
-
-    @GetMapping(value = "cities/all")
+    @GetMapping("/cities/all")
     public ResponseEntity<List<City>> allCities(){
         return new ResponseEntity<>(cityRepo.findAll(),HttpStatus.OK);
     }
@@ -47,22 +46,6 @@ public class CityController {
         stateCities.setCities(list1);
         return new ResponseEntity<>(stateCities,HttpStatus.OK);
     }
-
-    @PostMapping(value = "/city/add")
-    public ResponseEntity<?> AddCity(@RequestBody AddCity addCity){
-        int sid=addCity.getStateId();
-        State state=stateRepo.findById(sid);
-        if(state==null)
-            return ResponseEntity.badRequest().body("State Not Found");
-        City city=new City();
-        city.setId(addCity.getId());
-        city.setState(state);
-        city.setCity(addCity.getCity());
-        City city1=new City();
-        city1=cityRepo.save(city);
-        return new ResponseEntity<>(city1,HttpStatus.OK);
-    }
-
 
     @GetMapping("/city/addallcity")
     public String addAllCity(){
@@ -86,15 +69,8 @@ public class CityController {
 
 }
 
-
 @Data
 class StateCities {
     private List<State> states;
     private List<City> cities;
-}
-@Data
-class AddCity {
-    private int id;
-    private int stateId;
-    private String city;
 }

@@ -1,9 +1,7 @@
 package com.bezkoder.spring.jwt.mongodb.Forts;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
@@ -15,9 +13,10 @@ import javax.persistence.Column;
 public class FortDetails {
     @Id
     private int id;
-    @DBRef
     @Column(nullable = false)
-    private Fort fort;
+    private int fortId;
+    @Column(nullable = false)
+    private String fortName;
     @Column(nullable = false)
     private String locationDetails;
     @Column(nullable = false)
@@ -25,16 +24,15 @@ public class FortDetails {
     @Column(nullable = false)
     private String features;
     @Column(nullable = false)
-    private String[] controlledBy;
+    private String controlledBy;
     @Column(nullable = false)
-    private String[] transportFacility;
+    private String transportFacility;
     @Column(nullable = false)
     private String stayFacility;
     @Column(nullable = false)
-    private String[] nearByPlaces;
+    private String nearByPlaces;
     @Column(nullable = false)
     private String typeOfFort;
     @Column(nullable = false)
     private String height;
-
 }

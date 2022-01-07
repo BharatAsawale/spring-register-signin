@@ -1,0 +1,30 @@
+[
+    {
+        "id": 10001,
+        "fortId": 1001,
+        "fortName": null,
+        "locationDetails": "pune",
+        "history": "Formerly known as Murumdev, the fort was the capital of the Maratha Empire under the rule of Chatrapati Shivaji Maharaj for almost 26 years.",
+        "features": "The fort's ruins consist of palaces, water cisterns, and caves.",
+        "controlledBy": "abc,pqr,xyz",
+        "transportFacility": "Bus",
+        "stayFacility": "No",
+        "nearByPlaces": "Raigad,Torana",
+        "typeOfFort": "Hill fort",
+        "height": "1,356 metres (4,400 ft) ASL"
+    },
+    {
+        "id": 10002,
+        "fortId": 0,
+        "fortName": null,
+        "locationDetails": "Malavli",
+        "history": "mast killa aahe",
+        "features": "vinchu kada",
+        "controlledBy": "abc,pqr,xyz",
+        "transportFacility": "Bus,Train",
+        "stayFacility": "No",
+        "nearByPlaces": "Visapur,Bhaja Caves",
+        "typeOfFort": "Hill fort",
+        "height": "1,356 metres (4,400 ft) ASL"
+    }
+]
