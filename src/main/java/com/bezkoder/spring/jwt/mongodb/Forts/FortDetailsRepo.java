@@ -1,12 +1,10 @@
 package com.bezkoder.spring.jwt.mongodb.Forts;
 
-import com.bezkoder.spring.jwt.mongodb.Forts.FortDetails;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
+@Repository
 public interface FortDetailsRepo extends MongoRepository<FortDetails,Long> {
-//    List<FortDetails> findByFortId(int id);
 
     FortDetails findByFortId(int id);
 }
