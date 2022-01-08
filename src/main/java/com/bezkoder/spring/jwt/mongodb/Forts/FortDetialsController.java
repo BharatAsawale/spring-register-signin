@@ -33,6 +33,15 @@ public class FortDetialsController {
         return new ResponseEntity<>(fortDetails,HttpStatus.OK);
     }
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> findById(@PathVariable int id){
+//        List<FortDetails> fortDetailsList=fortDetailsRepo.findByFortId(id);
+////        FortDetails fortDetails=fortDetailsRepo.findByFortId(id);
+//        if (fortDetailsList==null)
+//            return ResponseEntity.badRequest().body("Fort Details Not Found");
+//        return new ResponseEntity<>(fortDetailsList,HttpStatus.OK);
+//    }
+
     @GetMapping("/all")
     public ResponseEntity<List<FortDetails>> getAll(){
         return new ResponseEntity<>(fortDetailsRepo.findAll(), HttpStatus.OK);
