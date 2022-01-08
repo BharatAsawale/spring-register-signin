@@ -25,22 +25,22 @@ public class FortDetialsController {
         return new ResponseEntity<>(fortDetails1, HttpStatus.OK);
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<?> findById(@PathVariable int id){
-//        FortDetails fortDetails=fortDetailsRepo.findByFortId(id);
-//        if (fortDetails==null)
-//            return ResponseEntity.badRequest().body("Fort Details Not Found");
-//        return new ResponseEntity<>(fortDetails,HttpStatus.OK);
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id){
-        List<FortDetails> fortDetailsList=fortDetailsRepo.findByFortId(id);
-//        FortDetails fortDetails=fortDetailsRepo.findByFortId(id);
-        if (fortDetailsList==null)
+        FortDetails fortDetails=fortDetailsRepo.findByFortId(id);
+        if (fortDetails==null)
             return ResponseEntity.badRequest().body("Fort Details Not Found");
-        return new ResponseEntity<>(fortDetailsList,HttpStatus.OK);
+        return new ResponseEntity<>(fortDetails,HttpStatus.OK);
     }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<?> findById(@PathVariable int id){
+//        List<FortDetails> fortDetailsList=fortDetailsRepo.findByFortId(id);
+////        FortDetails fortDetails=fortDetailsRepo.findByFortId(id);
+//        if (fortDetailsList==null)
+//            return ResponseEntity.badRequest().body("Fort Details Not Found");
+//        return new ResponseEntity<>(fortDetailsList,HttpStatus.OK);
+//    }
 
 
     @GetMapping("/all")
