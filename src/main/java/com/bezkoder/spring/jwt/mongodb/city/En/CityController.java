@@ -10,11 +10,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/city")
 public class CityController {
     private final CityRepo cityRepo;
     private final StateRepo stateRepo;
 
-    @PostMapping("/city/add/{sid}")
+    @PostMapping("/add/{sid}")
     public ResponseEntity<?> AddCity(@RequestBody City city, @PathVariable int sid){
         State state=stateRepo.findById(sid);
         if(state==null)
@@ -25,14 +26,17 @@ public class CityController {
         return new ResponseEntity<>(city1,HttpStatus.OK);
     }
 
-    @GetMapping("/cities/all")
+    @GetMapping("/all")
     public ResponseEntity<List<City>> allCities(){
         return new ResponseEntity<>(cityRepo.findAll(),HttpStatus.OK);
     }
 
-    @GetMapping("/cities/{id}")
-    public ResponseEntity<?> findCitiesById(@PathVariable int id){
-        State state=stateRepo.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<City> findById(@PathVariable int id) { return new ResponseEntity<>(cityRepo.findById(id),HttpStatus.OK); }
+
+    @GetMapping("/state/{sid}")
+    public ResponseEntity<?> findCitiesById(@PathVariable int sid){
+        State state=stateRepo.findById(sid);
         List<City> cities=cityRepo.findAllCitiesByState(state);
         return new ResponseEntity<>(cities,HttpStatus.OK);
     }

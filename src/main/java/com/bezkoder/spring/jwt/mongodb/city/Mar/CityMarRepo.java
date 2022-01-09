@@ -9,4 +9,6 @@ import java.util.List;
 public interface CityMarRepo extends MongoRepository<CityMar,Long> {
 
     List<CityMar> findAllByState(StateMar stateMar);
+
+    CityMar findById(int cid);
 }

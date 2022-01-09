@@ -1,4 +1,4 @@
-package com.bezkoder.spring.jwt.mongodb.Forts;
+package com.bezkoder.spring.jwt.mongodb.Forts.Eng;
 
 import com.bezkoder.spring.jwt.mongodb.city.En.City;
 import com.fasterxml.jackson.annotation.JsonIgnore;

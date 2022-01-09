@@ -1,8 +1,9 @@
-package com.bezkoder.spring.jwt.mongodb.Forts;
+package com.bezkoder.spring.jwt.mongodb.Forts.Eng;
 
 import com.bezkoder.spring.jwt.mongodb.city.En.City;
 import com.bezkoder.spring.jwt.mongodb.city.En.CityRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/fort")
 public class FortController {
+    @Autowired
     private final FortRepo fortRepo;
+    @Autowired
     private final CityRepo cityRepo;
 
     @PostMapping("add")

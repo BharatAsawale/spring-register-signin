@@ -1,6 +1,8 @@
-package com.bezkoder.spring.jwt.mongodb.Forts;
+package com.bezkoder.spring.jwt.mongodb.Forts.Mar;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,8 +11,8 @@ import javax.persistence.Column;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "fortDetails")
-public class FortDetails {
+@Document(collection = "fortmardetails")
+public class FortMarDetails {
     @Id
     private int id;
     @Column(nullable = false)

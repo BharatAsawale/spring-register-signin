@@ -3,6 +3,7 @@ package com.bezkoder.spring.jwt.mongodb.city.Mar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class CityMarController {
     }
 
     @GetMapping("/{id}")
+    public ResponseEntity<CityMar> findById(@PathVariable int id){ return new ResponseEntity<>(cityMarRepo.findById(id),HttpStatus.OK); }
+
+    @GetMapping("/state/{id}")
     public ResponseEntity<?> findCitiesByState(@PathVariable int id){
         StateMar stateMar=stateMarRepo.findById(id);
         if (stateMar==null)
