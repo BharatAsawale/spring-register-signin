@@ -35,4 +35,5 @@ public class FortDetails {
     private String typeOfFort;
     @Column(nullable = false)
     private String height;
+    private String mapUrl;
 }
