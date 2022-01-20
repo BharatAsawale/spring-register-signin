@@ -1,6 +1,6 @@
 package com.bezkoder.spring.jwt.mongodb.city.En;
 
-import lombok.Data;
+import com.bezkoder.spring.jwt.mongodb.payload.response.StateCitiesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,8 +42,8 @@ public class CityController {
     }
 
     @GetMapping("/statecity/all")
-    public ResponseEntity<StateCities> allCity(){
-        StateCities stateCities=new StateCities();
+    public ResponseEntity<StateCitiesResponse> allCity(){
+        StateCitiesResponse stateCities=new StateCitiesResponse();
         List<State> list=stateRepo.findAll();
         List<City> list1=cityRepo.findAll();
         stateCities.setStates(list);
@@ -71,10 +71,4 @@ public class CityController {
         return "done";
     }
 
-}
-
-@Data
-class StateCities {
-    private List<State> states;
-    private List<City> cities;
 }

@@ -1,5 +1,6 @@
 package com.bezkoder.spring.jwt.mongodb.Forts.Mar;
 
+import com.bezkoder.spring.jwt.mongodb.Forts.Eng.FortDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class FortMarDetailsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id){
-        FortMarDetails fortMarDetails=fortMarDetailsRepo.findById(id);
+        FortMarDetails fortMarDetails=fortMarDetailsRepo.findByFortId(id);
         if (fortMarDetails==null)
             return ResponseEntity.badRequest().body("Fort Details not found");
         return new ResponseEntity<>(fortMarDetails,HttpStatus.OK);

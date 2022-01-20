@@ -3,7 +3,6 @@ package com.bezkoder.spring.jwt.mongodb.city.Mar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +39,25 @@ public class CityMarController {
             return ResponseEntity.badRequest().body("State not found with given id");
         List<CityMar> cityMarList = cityMarRepo.findAllByState(stateMar);
         return new ResponseEntity<>(cityMarList,HttpStatus.OK);
+    }
+
+    @GetMapping("/addallcity")
+    public String addAllCity(){
+        String[] dis={"अजमेर","अलवार","बांसवाडा","बरान","बारमेर","भरतपुर","भिलवाडा","बिकानेर","बुंदी","चित्तोडगढ","चुरू","दौसा",
+                "धोलपुर","डुंगरपुर","हनुमानगढ","जयपुर","जेसलमेर","जालोर","झालावाड","झुनझुनुन",
+                "जोधपुर","करौली","कोटा","नागौर","पाली","प्रतापगढ",
+                "रजसामंड","सवाई माधोपूर","सिकर","सिरोही","गंगानगर","टोंक","उदयपूर"};
+        int count=301;
+        StateMar state=stateMarRepo.findById(3);
+        if(state==null)
+            return "State Not Found";
+        for(String d:dis){
+            CityMar city=new CityMar();
+            city.setId(count++);
+            city.setCity(d);
+            city.setState(state);
+            cityMarRepo.save(city);
+        }
+        return "done";
     }
 }
