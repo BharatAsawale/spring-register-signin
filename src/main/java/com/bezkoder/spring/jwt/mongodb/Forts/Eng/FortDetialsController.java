@@ -1,11 +1,12 @@
 package com.bezkoder.spring.jwt.mongodb.Forts.Eng;
 
+import com.bezkoder.spring.jwt.mongodb.Forts.Mar.FortMarDetails;
+import com.bezkoder.spring.jwt.mongodb.Forts.Mar.FortMarDetailsRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/fortdetails")
 public class FortDetialsController {
+    private final FortMarDetailsRepo fortMarDetailsRepo;
     private final FortDetailsRepo fortDetailsRepo;
     private final FortRepo fortRepo;
 
@@ -44,6 +46,7 @@ public class FortDetialsController {
     @GetMapping("/like/{fid}/{userId}")
     public ResponseEntity<?> addLikes(@PathVariable int fid,@PathVariable String userId){
         FortDetails fd=fortDetailsRepo.findById(fid);
+        FortMarDetails fmd=fortMarDetailsRepo.findById(fid);
         if(fd==null)
             return ResponseEntity.badRequest().body("Invalid Request");
         Set<String> set=fd.getLikes();
@@ -51,10 +54,12 @@ public class FortDetialsController {
             Set<String> set1=new HashSet<>();
             set1.add(userId);
             fd.setLikes(set1);
+            fmd.setLikes(set1);
         }
         else
             set.add(userId);
         fortDetailsRepo.save(fd);
-        return new ResponseEntity<>(fd,HttpStatus.OK);
+        fortMarDetailsRepo.save(fmd);
+        return new ResponseEntity<>(fmd,HttpStatus.OK);
     }
 }

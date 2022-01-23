@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -37,4 +38,6 @@ public class FortMarDetails {
     private String typeOfFort;
     @Column(nullable = false)
     private String height;
+    private String mapUrl;
+    private Set<String> likes;
 }

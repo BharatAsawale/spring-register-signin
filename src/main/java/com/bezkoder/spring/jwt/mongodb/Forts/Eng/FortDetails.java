@@ -38,7 +38,5 @@ public class FortDetails {
     @Column(nullable = false)
     private String height;
     private String mapUrl;
-//    changes
-//    private List<String> likes;
     private Set<String> likes;
 }
