@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,19 +41,19 @@ public class FortDetialsController {
         return new ResponseEntity<>(fortDetailsRepo.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/like/{fid}/{userName}")
-    public ResponseEntity<?> addLikes(@PathVariable int fid,@PathVariable String userName){
+    @GetMapping("/like/{fid}/{userId}")
+    public ResponseEntity<?> addLikes(@PathVariable int fid,@PathVariable String userId){
         FortDetails fd=fortDetailsRepo.findById(fid);
         if(fd==null)
             return ResponseEntity.badRequest().body("Invalid Request");
-        List<String> list=fd.getLikes();
-        if(list==null){
-            List<String> list1=new ArrayList<>();
-            list1.add(userName);
-            fd.setLikes(list1);
+        Set<String> set=fd.getLikes();
+        if(set==null){
+            Set<String> set1=new HashSet<>();
+            set1.add(userId);
+            fd.setLikes(set1);
         }
         else
-            list.add(userName);
+            set.add(userId);
         fortDetailsRepo.save(fd);
         return new ResponseEntity<>(fd,HttpStatus.OK);
     }
