@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,5 +37,22 @@ public class FortDetialsController {
     @GetMapping("/all")
     public ResponseEntity<List<FortDetails>> getAll(){
         return new ResponseEntity<>(fortDetailsRepo.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/like/{fid}/{userName}")
+    public ResponseEntity<?> addLikes(@PathVariable int fid,@PathVariable String userName){
+        FortDetails fd=fortDetailsRepo.findById(fid);
+        if(fd==null)
+            return ResponseEntity.badRequest().body("Invalid Request");
+        List<String> list=fd.getLikes();
+        if(list==null){
+            List<String> list1=new ArrayList<>();
+            list1.add(userName);
+            fd.setLikes(list1);
+        }
+        else
+            list.add(userName);
+        fortDetailsRepo.save(fd);
+        return new ResponseEntity<>(fd,HttpStatus.OK);
     }
 }

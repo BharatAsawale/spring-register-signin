@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface FortDetailsRepo extends MongoRepository<FortDetails,Long> {
 
     FortDetails findByFortId(int id);
+
+    FortDetails findById(int id);
 }

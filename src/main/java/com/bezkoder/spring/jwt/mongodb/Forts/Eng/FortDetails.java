@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,4 +37,6 @@ public class FortDetails {
     @Column(nullable = false)
     private String height;
     private String mapUrl;
+//    changes
+    private List<String> likes;
 }
