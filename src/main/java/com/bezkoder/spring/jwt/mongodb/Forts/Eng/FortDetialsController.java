@@ -47,10 +47,11 @@ public class FortDetialsController {
     public ResponseEntity<?> addLikes(@PathVariable int fid,@PathVariable String userId){
         FortDetails fd=fortDetailsRepo.findById(fid);
         FortMarDetails fmd=fortMarDetailsRepo.findById(fid);
-        if(fd==null)
-            return ResponseEntity.badRequest().body("Invalid Request");
+        if(fd==null || fmd==null)
+            return ResponseEntity.badRequest().body("fort details not found");
         Set<String> set=fd.getLikes();
-        if(set==null){
+        Set<String> setMar=fmd.getLikes();
+        if(set==null || setMar==null){
             Set<String> set1=new HashSet<>();
             set1.add(userId);
             fd.setLikes(set1);
