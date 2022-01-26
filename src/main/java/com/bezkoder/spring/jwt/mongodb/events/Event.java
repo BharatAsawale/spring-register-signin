@@ -11,5 +11,7 @@ public class Event {
     private int id;
     private String organizer;
     private String details;
+    private String amount;
     private Date date;
+    private String url;
 }
