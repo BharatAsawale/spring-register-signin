@@ -13,5 +13,7 @@ public class Event {
     private String details;
     private String amount;
     private Date date;
+    private String contact;
+    private String email;
     private String url;
 }

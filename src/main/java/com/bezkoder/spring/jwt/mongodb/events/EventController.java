@@ -26,7 +26,7 @@ public class EventController {
         return new ResponseEntity<>(eventList,HttpStatus.OK);
     }
 
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public  ResponseEntity<?> findEventById(@PathVariable int id){
         Event event=eventRepo.findById(id);
         if(event==null)
